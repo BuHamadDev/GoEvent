@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GoEvent - Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <header>
+    <nav>
+      <ul class="navbar">
+        <a href="index.html"><img src="images/GoEventLogo.JPG" class="logo"alt = "Uniform Logo"></a>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="Create.html">Create Event</a></li>
+        <li><a href="BookNow.html">Book Now</a></li>
+        <li><a  href="bookForm.html">Book Form</a></li>
+        <li><a href="Venues.html">Venues</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+   <div>
+  
+    <h1 class="home">Welcome to GoEvent</h1>
+    <p>
+      Discover, create, and join events at Sultan Qaboos University and beyond. 
+      Stay connected with your community and never miss an opportunity again.
+    </p>
+    <form action="https://httpbin.org/get" method="get">
+      <input type="text" name="query" placeholder="Search events by name or category..." required />
+      <button type="submit" class="btn">Search</button>
+    </form>
+  
+  </div>
+
+
+
+
+  
+  <div>
+    <h2>Featured Events</h2>
+    
+    <table class="table-events">     
+        <tr>
+          <th>Image</th>
+          <th>Event</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Venue</th>
+          <th>Action</th>
+        </tr>   
+        <img id="homeImage" src="images/homeImage.jpg" alt="Students attending an event" />
+
+        <tr>
+          <td><img src="images/ComputerLab.jfif" alt="Workshop poster" width="200" /></td>
+          <td>Web Development Workshop</td>
+          <td>Technology</td>
+          <td>Nov 20</td>
+          <td>10:00 AM</td>
+          <td>SQU CS Building</td>
+          <td><a class="btn btn-small" href="event-details.html">View</a></td>
+        </tr>
+        <tr>
+            <td><img src="images/conventionImage.jpg" alt="Tech Innovators Conference poster" width="200" /></td>
+            <td>Tech Innovators Conference 2025</td>
+            <td>Technology / Conference</td>
+            <td>Nov 15</td>
+            <td>9:00 AM – 5:00 PM</td>
+            <td>Muscat Convention Center, Muscat, Oman</td>
+            <td><a class="btn btn-small" href="event-details.html">View</a></td>
+        </tr>
+
+      
+    </table>
+  </div>
+
+ 
+  <footer>
+    <p>&copy; 2025 GoEvent. All rights reserved.</p>
+    <p>Discover. Join. Connect.</p>
+  </footer>
+</body>
+</html>
