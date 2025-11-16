@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News - GoEvent</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="navbar">
+        <a href="index.html"><img src="images/GoEventLogo.JPG" class="logo"alt = "Uniform Logo"></a>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Create.html">Create Event</a></li>
+        <li><a href="BookNow.html">Book Now</a></li>
+        <li><a class="active" href="bookForm.html">Book Form</a></li>
+        <li><a href="Venues.html">Venues</a></li>
+        <li><a href="About.html">About</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+        <li><a href="news.html">News</a> 
+        
+  </header>
+      <div>
+
+      <h2>Reserve Your Ticket</h2>
+      <form action="https://httpbin.org/get" method="get">
+        <label for="event">Select Event</label>
+        <select id="event" name="event" required>
+          <option value="workshop">Web Development Workshop</option>
+          <option value="conference">Tech Innovators Conference 2025</option>
+        </select>
+        <br><br>
+        <label for="ticket-type">Ticket Type</label>
+        <select id="ticket-type" name="ticket-type" required>
+          <option value="standard">Standard</option>
+          <option value="vip">VIP</option>
+        </select>
+        <br><br>
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" min="1" max="10" required />
+        <br><br>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Full name" required />
+        <br><br>
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        <br>
+        <br>
+        <button  class="btn" type="submit" >Book Now</button>
+      </form>
+      <pre>
+
+      </pre>
+      </div>
+
+
+  <footer>
+    <p>&copy; 2025 GoEvent. All rights reserved.</p>
+    <p>Discover. Join. Connect.</p>
+  </footer>
+
+    
+</body>
