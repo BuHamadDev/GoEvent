@@ -41,41 +41,52 @@
   <h1 class="mb-3">Create Event</h1>
   <h2 class="mb-4">Wondering where to make memories?<br>JUST GoEvent :)</h2>
 
-  <form action="https://httpbin.org/get" method="get" class="row g-3">
-    <div class="col-12">
-      <label for="event-name" class="form-label">Event Name</label>
-      <input type="text" id="event-name" name="event-name" class="form-control" placeholder="Enter event title" required>
-    </div>
+  <form action="https://httpbin.org/get" method="get" class="row g-3 was-validated">
+  <div class="col-12">
+    <label for="event-name" class="form-label">Event Name</label>
+    <input type="text" id="event-name" name="event-name" class="form-control" placeholder="Enter event title" required>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Please enter an event name.</div>
+  </div>
 
-    <div class="col-md-6">
-      <label for="event-date" class="form-label">Date</label>
-      <input type="date" id="event-date" name="event-date" class="form-control" required>
-    </div>
+  <div class="col-md-6">
+    <label for="event-date" class="form-label">Date</label>
+    <input type="date" id="event-date" name="event-date" class="form-control" required>
+    <div class="valid-feedback">Valid date.</div>
+    <div class="invalid-feedback">Please select a date.</div>
+  </div>
 
-    <div class="col-md-6">
-      <label for="event-time" class="form-label">Time</label>
-      <input type="time" id="event-time" name="event-time" class="form-control" required>
-    </div>
+  <div class="col-md-6">
+    <label for="event-time" class="form-label">Time</label>
+    <input type="time" id="event-time" name="event-time" class="form-control" required>
+    <div class="valid-feedback">Valid time.</div>
+    <div class="invalid-feedback">Please select a time.</div>
+  </div>
 
-    <div class="col-12">
-      <label for="location" class="form-label">Location</label>
-      <input type="text" id="location" name="location" class="form-control" placeholder="Event venue" required>
-    </div>
+  <div class="col-12">
+    <label for="location" class="form-label">Location</label>
+    <input type="text" id="location" name="location" class="form-control" placeholder="Event venue" required>
+    <div class="valid-feedback">Looks good!</div>
+    <div class="invalid-feedback">Please enter a location.</div>
+  </div>
 
-    <div class="col-12">
-      <label for="description" class="form-label">Description</label>
-      <textarea id="description" name="description" rows="5" class="form-control" placeholder="Describe your event..." required></textarea>
-    </div>
+  <div class="col-12">
+    <label for="description" class="form-label">Description</label>
+    <textarea id="description" name="description" rows="5" class="form-control" placeholder="Describe your event..." required></textarea>
+    <div class="valid-feedback">Valid description.</div>
+    <div class="invalid-feedback">Please provide a description.</div>
+  </div>
 
-    <div class="col-12">
-      <label for="image" class="form-label">Upload Image</label>
-      <input type="file" id="image" name="image" class="form-control" accept="image/png, image/jpeg">
-    </div>
+  <div class="col-12">
+    <label for="image" class="form-label">Upload Image</label>
+    <input type="file" id="image" name="image" class="form-control" accept="image/png, image/jpeg">
+  </div>
 
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary">Create Event</button>
-    </div>
-  </form>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Create Event</button>
+  </div>
+</form>
+
 </div>
 
 <footer class="bg-primary text-white text-center py-3 mt-5">
