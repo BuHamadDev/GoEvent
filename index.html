@@ -220,6 +220,15 @@
 // --------------------------------------------- 
 // Function to change image
 // ---------------------------------------------  
+
+ var galleryImages = [
+    "images/Discover.png",
+    "images/Join.png",
+    "images/Connect.png"
+];
+
+var currentIndex = 0;
+  
 function rotateGallery() {
 
     // Get the image element
@@ -248,13 +257,14 @@ setInterval(rotateGallery, 3000);
 var position = window.innerWidth;    // start from right edge
 
 function moveBanner() {
-    position -= 2; // speed of movement
-    bannerText.style.left = position + "px";
-
-    // if text leaves the left side, reset to right side
-    if (position < -bannerText.offsetWidth) {
-        position = window.innerWidth;
-    }
+      position -= 2; // speed of movement
+      bannerText.style.left = position + "px";
+  
+      // if text leaves the left side, reset to right side
+      if (position < -bannerText.offsetWidth) {
+          position = window.innerWidth;
+      }
+}
 // Move the banner every 20ms
 setInterval(moveBanner, 20);
   
@@ -262,6 +272,7 @@ setInterval(moveBanner, 20);
 
   </body>
   </html>
+
 
 
 
