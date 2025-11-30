@@ -113,6 +113,16 @@
   </form>
 </div>
 
+  
+<!--Photo gallery-->
+<div class="container my-5">
+<img id="galleryImage" 
+      src="images/Discover.png" 
+      class="img-fluid rounded"
+      alt="Gallery Image"
+      style="max-height: 300px; border: 3px solid #0b5ed7;">
+</div>
+
 
 <!--Banner -->
 <div id="banner" 
@@ -207,6 +217,30 @@
     };
 
 
+// --------------------------------------------- 
+// Function to change image
+// ---------------------------------------------  
+function rotateGallery() {
+
+    // Get the image element
+    var img = document.getElementById("galleryImage");
+
+    // Change the src attribute
+    img.src = galleryImages[currentIndex];
+
+    // Move to next index
+    currentIndex++;
+
+    // If end of array reached, go back to start
+    if (currentIndex >= galleryImages.length) {
+        currentIndex = 0;
+    }
+}
+
+// Rotate 
+setInterval(rotateGallery, 3000);
+
+
 // ---------------------------------------------
 // Function to make the banner text move from right to left
 // ---------------------------------------------
@@ -228,5 +262,6 @@ setInterval(moveBanner, 20);
 
   </body>
   </html>
+
 
 
