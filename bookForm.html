@@ -4,16 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>News - GoEvent</title>
-  <link rel="stylesheet" href="style.css" />
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous">
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
+
 </head>
 <body>
   
+ 
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
       <a class="navbar-brand" href="index.html">
@@ -29,69 +31,94 @@
           <li class="nav-item"><a class="nav-link" href="BookNow.html">Book Now</a></li>
           <li class="nav-item"><a class="nav-link active" href="bookForm.html">Book Form</a></li>
           <li class="nav-item"><a class="nav-link" href="Venues.html">Venues</a></li>
-          <li class="nav-item"><a class="nav-link " href="About.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li>
           <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
         </ul>
       </div>
     </div>
   </nav>
-      <div>
 
-      <h2>Reserve Your Ticket</h2>
-      <form action="https://httpbin.org/get" method="get">
-        <label for="event">Select Event</label>
-        <select id="event" name="event" required>
+  
+  <div class="container my-5">
+    <h2 class="mb-4">Reserve Your Ticket</h2>
+    <form action="https://httpbin.org/get" method="get" class="row g-3">
+
+      
+      <div class="col-12">
+        <label for="event" class="form-label">Select Event</label>
+        <select id="event" name="event" class="form-select" required>
           <option value="workshop">Web Development Workshop</option>
           <option value="conference">Tech Innovators Conference 2025</option>
         </select>
-        <br><br>
-        <label for="ticket-type">Ticket Type</label>
-        <select id="ticket-type" name="ticket-type" required>
+      </div>
+
+      
+      <div class="col-12">
+        <label for="ticket-type" class="form-label">Ticket Type</label>
+        <select id="ticket-type" name="ticket-type" class="form-select" required>
           <option value="standard">Standard</option>
           <option value="vip">VIP</option>
         </select>
-        <br><br>
-        <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" name="quantity" min="1" max="10" required />
-        <br><br>
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" placeholder="Full name" required />
-        <br><br>
-        <label for="email">Your Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required />
-        <br>
-        <br>
-        <label>Payment Method</label><br>
-        <input type="radio" id="card" name="payment" value="card" required>
-        <label for="card">Credit/Debit Card</label><br>
-
-        <input type="radio" id="cash" name="payment" value="cash">
-        <label for="cash">Pay at Event</label>
-        <br><br>
-
-        
-        <input type="checkbox" id="agree" name="agree" value="yes" required>
-        <label for="agree">I agree to the event terms & conditions</label>
-        <br>
-        <input type="checkbox" id="privacey" name="agree" value="yes" required>
-        <label for="privacey">I accept the privacy policy</label>
-        <br><br>
-        <br>
-        <button  class="btn" type="submit" >Book Now</button>
-      </form>
-      <pre>
-
-      </pre>
       </div>
 
+      
+      <div class="col-md-4">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="10" required>
+      </div>
 
-<footer class="bg-primary text-white text-center py-3 mt-5">
-  <p>&copy; 2025 GoEvent. All rights reserved.</p>
-  <p>Discover. Join. Connect.</p>
+      
+      <div class="col-md-6">
+        <label for="name" class="form-label">Your Name</label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Full name" required>
+      </div>
 
-    
+      
+      <div class="col-md-6">
+        <label for="email" class="form-label">Your Email</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+      </div>
+
+      
+      <div class="col-12">
+        <label class="form-label">Payment Method</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="card" name="payment" value="card" required>
+          <label class="form-check-label" for="card">Credit/Debit Card</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="cash" name="payment" value="cash">
+          <label class="form-check-label" for="cash">Pay at Event</label>
+        </div>
+      </div>
+
+      
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="agree" name="agree" value="yes" required>
+          <label class="form-check-label" for="agree">I agree to the event terms & conditions</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="privacy" name="privacy" value="yes" required>
+          <label class="form-check-label" for="privacy">I accept the privacy policy</label>
+        </div>
+      </div>
+
+      
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Book Now</button>
+      </div>
+    </form>
+  </div>
+
+  
+  <footer class="bg-primary text-white text-center py-3 mt-5">
+    <p class="mb-0">&copy; 2025 GoEvent. All rights reserved.</p>
+    <p class="mb-0">Discover. Join. Connect.</p>
+  </footer>
+
+  
+
 </body>
-
-
-
+</html>
