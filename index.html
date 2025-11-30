@@ -3,25 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <title>GoEvent - Home</title>
+
+  <!-- Bootstrap CSS for styling -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous">
+
+  <!-- Bootstrap JS bundle (includes Popper.js for dropdowns, modals, etc.) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
 </head>
 <body>
-  
+    
+<!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
+    <!-- Logo -->
     <a class="navbar-brand" href="index.html">
       <img src="images/GoEventLogo.jpg" alt="Uniform Logo" width="50">
     </a>
+    <!-- Hamburger menu for mobile -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <!-- Navigation links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
+        <!-- Each <li> is a nav item -->
         <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="Create.html">Create Event</a></li>
         <li class="nav-item"><a class="nav-link" href="BookNow.html">Book Now</a></li>
@@ -35,7 +44,7 @@
   </div>
 </nav>
 
-
+<!-- Hero section with welcome text and search bar -->
 <div class="container my-5">
   <div class="row align-items-center">
     <div class="col-lg-8">
@@ -44,23 +53,26 @@
         Discover, create, and join events at Sultan Qaboos University and beyond. 
         Stay connected with your community and never miss an opportunity again.
       </p>
+      <!-- Simple search form (submits to httpbin.org for testing) -->
       <form action="https://httpbin.org/get" method="get" class="d-flex gap-2">
         <input type="text" name="query" class="form-control" placeholder="Search events by name or category..." required />
         <button type="submit" class="btn btn-primary">Search</button>
       </form>
     </div>
+    <!-- Image on the right side -->
     <div class="col-lg-4 text-center mt-4 mt-lg-0">
       <img src="images/homeImage.jpg" alt="Students attending an event" class="img-fluid rounded">
     </div>
   </div>
 </div>
 
-
+<!-- Featured Events section -->
 <div class="container my-5">
   <h2 class="mb-4">Featured Events</h2>
   <div class="row">
     <div class="col-12">
-      <table class="table table-striped table-bordered align-middle">
+      <!-- Table where events will be displayed dynamically -->
+      <table id="eventTable" class="table table-striped table-bordered align-middle">
         <thead class="table-primary">
           <tr>
             <th>Image</th>
@@ -72,34 +84,114 @@
             <th>Action</th>
           </tr>
         </thead>
-        
-          <tr>
-            <td><img src="images/ComputerLab.jfif" alt="Workshop poster" class="img-fluid rounded" style="max-width:200px;"></td>
-            <td>Web Development Workshop</td>
-            <td>Technology</td>
-            <td>Nov 20</td>
-            <td>10:00 AM</td>
-            <td>SQU CS Building</td>
-            <td><a class="btn btn-primary btn-sm" href="event-details.html">View</a></td>
-          </tr>
-          <tr>
-            <td><img src="images/conventionImage.jpg" alt="Tech Innovators Conference poster" class="img-fluid rounded" style="max-width:200px;"></td>
-            <td>Tech Innovators Conference 2025</td>
-            <td>Technology / Conference</td>
-            <td>Nov 15</td>
-            <td>9:00 AM – 5:00 PM</td>
-            <td>Muscat Convention Center, Muscat, Oman</td>
-            <td><a class="btn btn-primary btn-sm" href="event-details.html">View</a></td>
-          </tr>
-        
+        <!-- Table body starts empty; rows will be added by JavaScript -->
+        <tbody></tbody>
       </table>
     </div>
   </div>
+
+  <!-- Form to add new events -->
+  <h3 class="mt-5">Add New Event</h3>
+  <form onsubmit="addEvent(); return false;" class="row g-2">
+    <!-- Each input field collects event details -->
+    <div class="col-md-4"><input type="text" id="eventName" class="form-control" placeholder="Event Name" required></div>
+    <div class="col-md-4"><input type="text" id="eventCategory" class="form-control" placeholder="Category" required></div>
+    <div class="col-md-4"><input type="text" id="eventDate" class="form-control" placeholder="Date" required></div>
+    <div class="col-md-4"><input type="text" id="eventTime" class="form-control" placeholder="Time" required></div>
+    <div class="col-md-4"><input type="text" id="eventVenue" class="form-control" placeholder="Venue" required></div>
+    <div class="col-md-4"><button type="submit" class="btn btn-success w-100">Add Event</button></div>
+  </form>
+
+  <!-- Form to search events -->
+  <h3 class="mt-5">Search Events</h3>
+  <form onsubmit="searchEvent(); return false;" class="d-flex gap-2">
+    <input type="text" id="searchQuery" class="form-control" placeholder="Search by name or category">
+    <button type="submit" class="btn btn-info">Search</button>
+  </form>
 </div>
 
+<!-- Footer -->
 <footer class="bg-primary text-white text-center py-3 mt-5">
   <p class="mb-0">&copy; 2025 GoEvent. All rights reserved.</p>
   <p class="mb-0">Discover. Join. Connect.</p>
 </footer>
-</body>
-</html>
+
+<script>
+  // -----------------------------
+  // Define an Event object type
+  // -----------------------------
+  function Event(image, name, category, date, time, venue, link) {
+    this.image = image;     // path to event image
+    this.name = name;       // event name
+    this.category = category; // category (e.g., Technology, Conference)
+    this.date = date;       // event date
+    this.time = time;       // event time
+    this.venue = venue;     // event venue
+    this.link = link;       // link to event details page
+  }
+
+  // -----------------------------
+  // Initialize array with 2 events
+  // -----------------------------
+  let events = [
+    new Event("images/ComputerLab.jfif", "Web Development Workshop", "Technology", "Nov 20", "10:00 AM", "SQU CS Building", "event-details.html"),
+    new Event("images/conventionImage.jpg", "Tech Innovators Conference 2025", "Technology / Conference", "Nov 15", "9:00 AM – 5:00 PM", "Muscat Convention Center, Muscat, Oman", "event-details.html")
+  ];
+
+  // -----------------------------
+  // Function to display events in table
+  // -----------------------------
+  function displayEvents(list = events) {
+    let tableBody = document.querySelector("#eventTable tbody");
+    tableBody.innerHTML = ""; // clear previous rows
+
+    // Loop through each event object and create a table row
+    list.forEach(e => {
+      let row = `
+        <tr>
+          <td><img src="${e.image}" alt="${e.name}" class="img-fluid rounded" style="max-width:200px;"></td>
+          <td>${e.name}</td>
+          <td>${e.category}</td>
+          <td>${e.date}</td>
+          <td>${e.time}</td>
+          <td>${e.venue}</td>
+          <td><a class="btn btn-primary btn-sm" href="${e.link}">View</a></td>
+        </tr>
+      `;
+      tableBody.innerHTML += row; // add row to table body
+    });
+  }
+
+  // -----------------------------
+  // Function to add a new event
+  // -----------------------------
+  function addEvent() {
+    // Get values from form inputs
+    let name = document.getElementById("eventName").value;
+    let category = document.getElementById("eventCategory").value;
+    let date = document.getElementById("eventDate").value;
+    let time = document.getElementById("eventTime").value;
+    let venue = document.getElementById("eventVenue").value;
+
+      events.push(new Event("images/default.jpg", name, category, date, time, venue, "event-details.html"));
+      displayEvents();
+    }
+
+    // Search events
+    function searchEvent() {
+      let query = document.getElementById("searchQuery").value.toLowerCase();
+      let results = events.filter(e => 
+        e.name.toLowerCase().includes(query) || 
+        e.category.toLowerCase().includes(query)
+      );
+      displayEvents(results);
+    }
+
+    
+    window.onload = () => {
+      displayEvents(events.slice(0,2)); // only first two rows
+    };
+  </script>
+
+  </body>
+  </html>
