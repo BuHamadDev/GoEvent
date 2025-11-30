@@ -249,7 +249,17 @@ function rotateGallery() {
 // Rotate 
 setInterval(rotateGallery, 3000);
 
-
+// ---------------------------------------------
+//Function to update banner
+// ---------------------------------------------  
+function updateBannerMessage() {
+    var now = new Date();
+    var dateString = now.toDateString();
+    var timeString = now.toLocaleTimeString();
+    bannerText.innerHTML = 
+      "Welcome to GoEvent! Today is " + dateString +
+      " and the time is " + timeString;
+}
 // ---------------------------------------------
 // Function to make the banner text move from right to left
 // ---------------------------------------------
@@ -265,6 +275,8 @@ function moveBanner() {
           position = window.innerWidth;
       }
 }
+setInterval(updateBannerMessage, 1000);
+updateBannerMessage();
 // Move the banner every 20ms
 setInterval(moveBanner, 20);
   
@@ -272,6 +284,7 @@ setInterval(moveBanner, 20);
 
   </body>
   </html>
+
 
 
 
