@@ -113,6 +113,17 @@
   </form>
 </div>
 
+
+<!--Banner -->
+<div id="banner" 
+     style="background-color:#0b5ed7; color:white; white-space: nowrap; overflow: hidden;
+            position: relative; height: 40px; line-height: 30px;">
+  <span id="bannerText" style="position: absolute; left: 100%;"></span>
+</div>
+
+  
+  
+
 <!-- Footer -->
 <footer class="bg-primary text-white text-center py-3 mt-5">
   <p class="mb-0">&copy; 2025 GoEvent. All rights reserved.</p>
@@ -194,8 +205,28 @@
     window.onload = () => {
       displayEvents(events.slice(0,2)); // only first two rows
     };
+
+
+// ---------------------------------------------
+// Function to make the banner text move from right to left
+// ---------------------------------------------
+
+var position = window.innerWidth;    // start from right edge
+
+function moveBanner() {
+    position -= 2; // speed of movement
+    bannerText.style.left = position + "px";
+
+    // if text leaves the left side, reset to right side
+    if (position < -bannerText.offsetWidth) {
+        position = window.innerWidth;
+    }
+// Move the banner every 20ms
+setInterval(moveBanner, 20);
+  
   </script>
 
   </body>
   </html>
+
 
