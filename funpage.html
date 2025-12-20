@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Page - GoEvent</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"></script>
+
+  <script>
+    
+    //  Initaial unsorted array of event names unsorted
+    var events = [
+      "Tech Conference",
+      "AI Seminar",
+      "Coding Workshop",
+      "Sports Festival"
+    ];
+
+    
+    // Sort a copy of the array
+    var correctOrder = events.slice();
+    correctOrder.sort();   // Alphabetical order
+
+    
+    //  function to display the original unsorted events
+    function displayOriginalOrder() {
+      var list = document.getElementById("originalList");
+      list.innerHTML = "";   // Clear previous output
+
+      // Loop and add each event
+      for (var i = 0; i < events.length; i++) {
+        list.innerHTML += (i + 1) + ". " + events[i] + "<br>";
+      }
+    }
+
+    
+    //  function used to check the order entered by the user 
+    function checkOrder() {
+
+        // Read user input
+        var guess = document.getElementById("guess").value;
+
+        // Convert the string into an array by using split
+        var positions = guess.split(" ");   
+
+        // Create an empty array for the user chosen order
+        var guessedEvents = [];
+
+        // Loop through the input numbers 
+        for (var i = 0; i < positions.length; i++) {
+
+        // get the position of the index 
+            var index = parseInt(positions[i]) - 1;
+
+        // Get the event name from the original array
+            guessedEvents.push(events[index]);
+        }
+
+
+        //  Compare guessedEvents with correctOrder
+        var isCorrect = true;
+
+        for (var i = 0; i < correctOrder.length; i++) {
+            if (guessedEvents[i] != correctOrder[i]) {
+            isCorrect = false;
+            }
+        }
+
+        //  Display result
+        var out = document.getElementById("result");
+        if (isCorrect) {
+            out.innerHTML = "<span class='text-success'><strong>Correct! You arranged the events alphabetically.</strong></span>";
+        } else {
+            out.innerHTML = "<span class='text-danger'><strong>Incorrect. Try again!</strong></span>";
+        }
+
+        return false;  
+    }
+
+    
+    window.onload = displayOriginalOrder;
+
+  </script>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/GoEventLogo.jpg" width="50" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="Create.html">Create Event</a></li>
+        <li class="nav-item"><a class="nav-link" href="BookNow.html">Book Now</a></li>
+        <li class="nav-item"><a class="nav-link" href="bookForm.html">Book Form</a></li>
+        <li class="nav-item"><a class="nav-link" href="Venues.html">Venues</a></li>
+        <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+        <li class="nav-item"><a class="nav-link" href="billCalculator.html">Calculator</a></li>
+        <li class="nav-item"><a class="nav-link" href="Questionnaire.html">Questionnaire</a></li>
+        <li class="nav-item"><a class="nav-link active" href="funpage.html">Fun Page</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container my-5">
+  <h1 class="mb-4">Arrange the Events Alphabetically!</h1>
+  <p class="fs-5">Below is a list of events in random order. Your task is to enter the correct alphabetical order using the numbers.</p>
+
+  <h4>Original Order:</h4>
+  <div id="originalList" class="mb-3 fs-5"></div>
+
+  <form onsubmit="return checkOrder()" class="row g-3">
+    <div class="col-12">
+      <label class="form-label">Enter the correct order (e.g., 3 1 2 4):</label>
+      <input type="text" id="guess" class="form-control" placeholder="Type positions separated by spaces">
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Check Answer</button>
+    </div>
+  </form>
+
+  <div id="result" class="mt-4 fs-4"></div>
+</div>
+
+<pre>
+
+
+</pre>
+
+<!-- Footer -->
+<footer class="bg-primary text-white text-center py-3 mt-5">
+  <p class="mb-0">&copy; 2025 GoEvent. All rights reserved.</p>
+  <p class="mb-0">Discover. Join. Connect.</p>
+</footer>
+
+</body>
+</html>
+

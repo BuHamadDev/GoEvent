@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questionnaire - GoEvent</title>
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"></script>
+
+    <script>
+
+    
+    // This function validates the Questionnaire form
+        function validateForm() {
+
+            // Form elements
+            var fullname = document.getElementById("fullname");
+            var email = document.getElementById("email");
+            var eventType = document.getElementById("event-type");
+            var feedback = document.getElementById("feedback");
+
+      
+            // Name Validation
+            // check if At least 5–20 alphabetic letters only
+            //initialise a variable with the name pattern
+            var namePattern = /^[A-Za-z]{5,20}$/;
+
+            if (fullname.value.search(namePattern) == -1) {
+                alert("Full name must be 5–20 alphabetic letters only.");
+                fullname.focus();
+                fullname.select();
+                return false;
+            }
+
+            
+            // Email validation
+            // Must contain '@' and '.' in correct positions.
+            if (email.value.indexOf("@") < 1 || email.value.indexOf(".") < 3) { // Check the index of '@' an '.'
+                alert("Please enter a valid email address.");
+                email.focus();
+                email.select();
+                return false;
+            }
+
+            
+            // Event type validation
+            // Must choose one option
+            if (eventType.value == "") {    // Check that it is not empty
+                alert("Please select the type of event you attended.");
+                eventType.focus();
+                return false;
+            }
+
+            
+            // Checkbox validation
+            // At least one checkbox must be selected.
+            var features = document.getElementsByName("features");
+            var checkedCount = 0;
+
+            // Loop through checkboxes
+            for (var i = 0; i < features.length; i++) {
+                if (features[i].checked == true) {
+                checkedCount++;
+                }
+            }
+            // Check that atleas one box is checked
+            if (checkedCount == 0) {
+                alert("Please select at least one feature you liked.");
+                features[0].focus();
+                return false;
+            }
+
+            
+            // Feedback length validation
+            // Feedback must be at least 15 characters.
+            if (feedback.value.length < 15) {
+                alert("Feedback must be at least 15 characters long.");
+                feedback.focus();
+                feedback.select();
+                return false;
+            }
+
+            
+            // If nothing is invalid return true.
+            return true;
+        }
+
+    </script>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/GoEventLogo.jpg" alt="Uniform Logo" width="50">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="Create.html">Create Event</a></li>
+        <li class="nav-item"><a class="nav-link" href="BookNow.html">Book Now</a></li>
+        <li class="nav-item"><a class="nav-link" href="bookForm.html">Book Form</a></li>
+        <li class="nav-item"><a class="nav-link" href="Venues.html">Venues</a></li>
+        <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+        <li class="nav-item"><a class="nav-link" href="billCalculator.html">Calculator</a></li>
+        <li class="nav-item"><a class="nav-link active" href="Questionnaire.html">Questionnaire</a></li>
+        <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container my-5">
+  <h1 class="mb-4">Customer Feedback Questionnaire</h1>
+  <p class="fs-5">
+    We value your opinion! Please help us improve GoEvent by answering the following questions.
+  </p>
+
+  <!--using of onsubmit-->
+  <form onsubmit="return validateForm()" method="get" class="row g-3">
+
+    <!-- FULL NAME -->
+    <div class="col-md-6">
+      <label for="fullname" class="form-label">Full Name</label>
+      <input type="text" id="fullname" name="fullname" class="form-control"
+             placeholder="Enter your name (5–20 letters)">
+    </div>
+
+    <!-- EMAIL -->
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email Address</label>
+      <input type="text" id="email" name="email" class="form-control"
+             placeholder="example@mail.com">
+    </div>
+
+    <!-- SELECT MENU -->
+    <div class="col-12">
+      <label for="event-type" class="form-label">Which type of event did you attend?</label>
+      <select id="event-type" name="event-type" class="form-select">
+        <option value="">Choose...</option>
+        <option value="workshop">Workshop</option>
+        <option value="seminar">Seminar</option>
+        <option value="conference">Conference</option>
+        <option value="competition">Competition</option>
+      </select>
+    </div>
+
+    <!-- RADIO BUTTONS -->
+    <div class="col-12">
+      <label class="form-label">How satisfied were you with the event?</label><br>
+
+      <div class="form-check">
+        <input type="radio" id="s1" name="satisfaction" value="excellent" class="form-check-input">
+        <label class="form-check-label" for="s1">Excellent</label>
+      </div>
+
+      <div class="form-check">
+        <input type="radio" id="s2" name="satisfaction" value="good" class="form-check-input">
+        <label class="form-check-label" for="s2">Good</label>
+      </div>
+
+      <div class="form-check">
+        <input type="radio" id="s3" name="satisfaction" value="poor" class="form-check-input">
+        <label class="form-check-label" for="s3">Poor</label>
+      </div>
+    </div>
+
+    <!-- CHECKBOXES -->
+    <div class="col-12">
+      <label class="form-label">Which features did you like? (Select at least one)</label><br>
+
+      <div class="form-check">
+        <input type="checkbox" name="features" value="design" class="form-check-input">
+        <label class="form-check-label">Design</label>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" name="features" value="speed" class="form-check-input">
+        <label class="form-check-label">Speed</label>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" name="features" value="events" class="form-check-input">
+        <label class="form-check-label">Events Variety</label>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" name="features" value="booking" class="form-check-input">
+        <label class="form-check-label">Easy Booking</label>
+      </div>
+    </div>
+
+    <!-- TEXTAREA -->
+    <div class="col-12">
+      <label for="feedback" class="form-label">Your Feedback</label>
+      <textarea id="feedback" name="feedback" rows="5" class="form-control"
+                placeholder="Write at least 15 characters..."></textarea>
+    </div>
+
+    <!-- SUBMIT BUTTON -->
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit Feedback</button>
+    </div>
+
+  </form>
+</div>
+
+<footer class="bg-primary text-white text-center py-3 mt-5">
+  <p class="mb-0">&copy; 2025 GoEvent. All rights reserved.</p>
+  <p class="mb-0">Discover. Join. Connect.</p>
+</footer>
+
+</body>
+</html>
+

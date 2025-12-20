@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoEvent - Bill Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+  <script>
+    // Run after page loads
+    window.onload = function() {
+      // Function to calculate the bill
+      window.calculateBill = function() {
+        // Get values from form inputs
+        let price = parseFloat(document.getElementById("ticketPrice").value);
+        let qty = parseInt(document.getElementById("quantity").value);
+        let age = parseInt(document.getElementById("age").value);
+        let member = document.getElementById("member").value;
+
+        // Calculate subtotal
+        let subtotal = price * qty;
+
+        // Initialize discount
+        let discount = 0;
+
+        // Apply age-based discount: 10% for elderly (age > 60)
+        if (age > 60) {
+          discount += 0.10 * subtotal;
+        }
+
+        // Apply discount: 5% if buying more than 5 tickets
+        if (qty > 5) {
+          discount += 0.05 * subtotal;
+        }
+
+        // Apply membership discount: 15% if user is a GoEvent member
+        if (member === "yes") {
+          discount += 0.15 * subtotal;
+        }
+
+        // Final total after discount
+        let total = subtotal - discount;
+
+        // Display result in the result div
+        let resultDiv = document.getElementById("result");
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `
+          <strong>Subtotal:</strong> OMR ${subtotal.toFixed(2)} <br>
+          <strong>Total Discount:</strong> OMR ${discount.toFixed(2)} <br>
+          <strong>Final Total:</strong> OMR ${total.toFixed(2)}
+        `;
+      }
+    }
+  </script>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="images/GoEventLogo.jpg" alt="GoEvent Logo" width="50">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="Create.html">Create Event</a></li>
+        <li class="nav-item"><a class="nav-link" href="BookNow.html">Book Now</a></li>
+        <li class="nav-item"><a class="nav-link" href="bookForm.html">Book Form</a></li>
+        <li class="nav-item"><a class="nav-link" href="Venues.html">Venues</a></li>
+        <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+        <li class="nav-item"><a class="nav-link active" href="billCalculator.html">Calculator</a></li>
+        <li class="nav-item"><a class="nav-link" href="Questionnaire.html">Questionnaire</a></li>
+        <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container my-5">
+  <h1 class="mb-3">Event Bill Calculator</h1>
+  <p class="fs-5">
+    This page helps you calculate the total bill when purchasing tickets for GoEvent activities.  
+    Discounts are applied based on age, ticket quantity, and membership.
+  </p>
+
+  <form id="billForm" class="row g-3">
+    <div class="col-md-6">
+      <label for="ticketPrice" class="form-label">Ticket Price (OMR)</label>
+      <input type="number" id="ticketPrice" class="form-control" placeholder="Enter price per ticket" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="quantity" class="form-label">Number of Tickets</label>
+      <input type="number" id="quantity" class="form-control" placeholder="Enter quantity" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="age" class="form-label">Your Age</label>
+      <input type="number" id="age" class="form-control" placeholder="Enter your age" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="member" class="form-label">Are you a GoEvent Member?</label>
+      <select id="member" class="form-select">
+        <option value="yes">Yes</option>
+        <option value="no" selected>No</option>
+      </select>
+    </div>
+
+    <div class="col-12">
+      <button type="button" class="btn btn-primary" onclick="calculateBill()">Calculate Bill</button>
+    </div>
+  </form>
+
+  <div id="result" class="alert alert-info mt-4" style="display:none;"></div>
+</div>
+
+<footer class="bg-primary text-white text-center py-3 mt-5">
+  <p class="mb-0">&copy; 2025 GoEvent. All rights reserved.</p>
+  <p class="mb-0">Discover. Join. Connect.</p>
+</footer>
+
+</body>
+</html>
