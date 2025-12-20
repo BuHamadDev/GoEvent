@@ -11,6 +11,53 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
+
+      <script>
+        function validateForm() {
+          let isValid = true;
+          document.querySelectorAll("span").forEach(span => span.innerText = "");
+
+          if (document.getElementById("event-name").value.trim() === "") {
+            document.getElementById("eventError").innerText = " Please enter the event name.";
+            isValid = false;
+          }
+
+          if (document.getElementById("event-date").value === "") {
+            document.getElementById("dateError").innerText = " Please select a date.";
+            isValid = false;
+          }
+          else {
+            let today = new Date().toISOString().split("T")[0];
+            if (date < today) {
+                document.getElementById("dateError").innerText = " Date cannot be in the past.";
+                isValid = false;
+            }
+          }
+
+          if (document.getElementById("event-time").value === "") {
+            document.getElementById("timeError").innerText = " Please select a time.";
+            isValid = false;
+          }
+
+          if (document.getElementById("location").value.trim() === "") {
+            document.getElementById("locationError").innerText = " Please enter the location.";
+            isValid = false;
+          }
+
+          if (document.getElementById("description").value.trim() === "") {
+            document.getElementById("descriptionError").innerText = " Please enter a description.";
+            isValid = false;
+          }
+
+          let image = document.getElementById("image").value;
+          if (image && !(/\.(jpg|jpeg|png)$/i).test(image)) {
+              document.getElementById("imageError").innerText = " Only JPG or PNG images allowed.";
+              isValid = false;
+          }
+
+          return isValid;
+        }
+      </script>
 </head>
 <body>
   
@@ -42,22 +89,34 @@
     <h2>Wondering where to make memories?<br>JUST GoEvent :)</h2>
 
     
-    <form action="https://httpbin.org/get" method="get">
+    <form action="https://httpbin.org/get" method="get" onsubmit="return validateForm()">
       <label for="event-name">Event Name</label>
-      <input type="text" id="event-name" name="event-name" placeholder="Enter event title" required /><br><br>
+      <input type="text" id="event-name" name="event-name" placeholder="Enter event title" required />
+      <span id="eventError"></span>
+      <br><br>
       <label for="event-date">Date</label>
-      <input type="date" id="event-date" name="event-date" required /><br><br>
+      <input type="date" id="event-date" name="event-date" required />
+      <span id="dateError"></span>
+      <br><br>
       <label for="event-time">Time</label>
-      <input type="time" id="event-time" name="event-time" required /><br><br>
+      <input type="time" id="event-time" name="event-time" required />
+      <span id="timeError"></span>
+      <br><br>
 
       <label for="location">Location</label>
-      <input type="text" id="location" name="location" placeholder="Event venue" required /><br><br>
+      <input type="text" id="location" name="location" placeholder="Event venue" required />
+      <span id="locationError"></span>
+      <br><br>
 
       <label for="description">Description</label><br>
-      <textarea id="description" name="description" rows="5" placeholder="Describe your event..." required></textarea><br><br>
+      <textarea id="description" name="description" rows="5" placeholder="Describe your event..." required></textarea>
+      <span id="descriptionError"></span>
+      <br><br>
 
       <label for="image">Upload Image</label>
-      <input type="file" id="image" name="image" accept="image/png, image/jpeg" /><br><br>
+      <input type="file" id="image" name="image" accept="image/png, image/jpeg" />
+      <span id="imageError"></span>
+      <br><br>
 
       <button type="submit" class="btn">Create Event</button><br><br>
     </form>
