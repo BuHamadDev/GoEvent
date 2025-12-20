@@ -68,7 +68,7 @@
         isValid = false;
       }
 
-      // Validate image file type (optional field)
+      // Validate image file type 
       let image = document.getElementById("image").value;
       if (image && !(/\.(jpg|jpeg|png)$/i).test(image)) {
         document.getElementById("imageError").innerText = "Only JPG or PNG images are allowed.";

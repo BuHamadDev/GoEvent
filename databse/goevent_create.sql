@@ -1,5 +1,5 @@
 -- Create database
-CREATE DATABASE goevent_db;
+CREATE DATABASE IF NOT EXISTS goevent_db;
 
 USE goevent_db;
 

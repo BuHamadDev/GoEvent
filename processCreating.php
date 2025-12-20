@@ -2,7 +2,7 @@
 
 $event_name = $_POST['event-name'];
 $event_date = $_POST['event-date']; 
-$event_location = $_POST['event-location'];
+$event_location = $_POST['location'];
 $description = $_POST['description'];
 
 
