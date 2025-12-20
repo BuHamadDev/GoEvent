@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News - GoEvent</title>
+  <title>Book Form - GoEvent</title>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
@@ -12,60 +12,83 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
 
+  <style>
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875em;
+      margin-top: 0.25rem;
+      display: block;
+    }
+  </style>
 
-      <script>
-        function validateForm() {
-          
-          let isValid = true;
-          document.querySelectorAll("span").forEach(span => span.innerText = "");
+  <script>
+    function validateForm() {
+      let isValid = true;
+      
+      // Clear all previous error messages
+      document.querySelectorAll(".error-message").forEach(span => span.innerText = "");
 
-          if (document.getElementById("event").value === "") {
-            document.getElementById("eventError").innerText = " Please select an event.";
-            isValid = false;
-          }
+      // Validate event selection
+      if (document.getElementById("event").value === "") {
+        document.getElementById("eventError").innerText = "Please select an event.";
+        isValid = false;
+      }
 
-          if (document.getElementById("ticket-type").value === "") {
-            document.getElementById("ticketError").innerText = " Please select a ticket type.";
-            isValid = false;
-          }
+      // Validate ticket type
+      if (document.getElementById("ticket-type").value === "") {
+        document.getElementById("ticketError").innerText = "Please select a ticket type.";
+        isValid = false;
+      }
 
-          if (document.getElementById("quantity").value == "" || document.getElementById("quantitiy").value <1 || document.getElementById("quantitiy").value >10){
-            document.getElementById("quantityError").innerText = " Please enter a valid quantity (1-10).";
-            isValid = false;
-          }
+      // Validate quantity (FIXED: removed typo)
+      let quantity = document.getElementById("quantity").value;
+      if (quantity === "" || quantity < 1 || quantity > 10) {
+        document.getElementById("quantityError").innerText = "Please enter a valid quantity (1-10).";
+        isValid = false;
+      }
 
-          if (document.getElementById("name").value.trim() === "") {
-            document.getElementById("nameError").innerText = " Please enter your name.";
-            isValid = false;
-          }
+      // Validate name
+      if (document.getElementById("name").value.trim() === "") {
+        document.getElementById("nameError").innerText = "Please enter your name.";
+        isValid = false;
+      }
 
-          let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-          let email = document.getElementById("email").value;
-          if(!emailPattern.test(email)){
-              document.getElementById("emailError").innerText = "Invalid email format";
-              isValid = false;
-          }
+      // Validate email with regular expression
+      let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      let email = document.getElementById("email").value;
+      if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerText = "Invalid email format.";
+        isValid = false;
+      }
 
-          if (!document.querySelector('input[name="payment"]:checked')) {
-              document.getElementById("paymentError").innerText = " Please select a payment method.";
-              isValid = false;
-        }
+      // Validate payment method selection
+      if (!document.querySelector('input[name="payment"]:checked')) {
+        document.getElementById("paymentError").innerText = "Please select a payment method.";
+        isValid = false;
+      }
 
-          if (!document.getElementById("agree").checked) {
-            document.getElementById("agreeError").innerText = " Please agree to the terms and conditions.";
-            isValid = false;
-          }
+      // Validate terms checkbox
+      if (!document.getElementById("agree").checked) {
+        document.getElementById("agreeError").innerText = "Please agree to the terms and conditions.";
+        isValid = false;
+      }
 
-          return isValid;
-        }
-      </script>
+      // Validate privacy checkbox
+      if (!document.getElementById("privacy").checked) {
+        document.getElementById("privacyError").innerText = "Please accept the privacy policy.";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+  </script>
 </head>
 <body>
   
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand" href="index.html">
-      <img src="images/GoEventLogo.jpg" alt="Uniform Logo" width="50">
+      <img src="images/GoEventLogo.jpg" alt="GoEvent Logo" width="50">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -90,135 +113,72 @@
 
 <div class="container my-5">
   <h2 class="mb-4">Reserve Your Ticket</h2>
-  <form action="https://httpbin.org/get" method="get" class="row g-3 was-validated">
+  <form action="https://httpbin.org/get" method="get" onsubmit="return validateForm()" class="row g-3">
 
     <div class="col-12">
       <label for="event" class="form-label">Select Event</label>
-      <select id="event" name="event" class="form-select" required>
+      <select id="event" name="event" class="form-select">
         <option value="">Choose...</option>
         <option value="workshop">Web Development Workshop</option>
         <option value="conference">Tech Innovators Conference 2025</option>
       </select>
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please select an event.</div>
+      <span id="eventError" class="error-message"></span>
     </div>
 
     <div class="col-12">
       <label for="ticket-type" class="form-label">Ticket Type</label>
-      <select id="ticket-type" name="ticket-type" class="form-select" required>
+      <select id="ticket-type" name="ticket-type" class="form-select">
         <option value="">Choose...</option>
         <option value="standard">Standard</option>
         <option value="vip">VIP</option>
       </select>
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please select a ticket type.</div>
+      <span id="ticketError" class="error-message"></span>
     </div>
 
     <div class="col-md-4">
       <label for="quantity" class="form-label">Quantity</label>
-      <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="10" required>
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please enter a quantity between 1 and 10.</div>
+      <input type="number" id="quantity" name="quantity" class="form-control" min="1" max="10">
+      <span id="quantityError" class="error-message"></span>
     </div>
 
     <div class="col-md-6">
       <label for="name" class="form-label">Your Name</label>
-      <input type="text" id="name" name="name" class="form-control" placeholder="Full name" required>
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please enter your name.</div>
+      <input type="text" id="name" name="name" class="form-control" placeholder="Full name">
+      <span id="nameError" class="error-message"></span>
     </div>
 
     <div class="col-md-6">
       <label for="email" class="form-label">Your Email</label>
-      <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please enter a valid email address.</div>
+      <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com">
+      <span id="emailError" class="error-message"></span>
     </div>
 
     <div class="col-12">
       <label class="form-label">Payment Method</label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" id="card" name="payment" value="card" required>
+        <input class="form-check-input" type="radio" id="card" name="payment" value="card">
         <label class="form-check-label" for="card">Credit/Debit Card</label>
       </div>
       <div class="form-check">
         <input class="form-check-input" type="radio" id="cash" name="payment" value="cash">
         <label class="form-check-label" for="cash">Pay at Event</label>
       </div>
-      <div class="valid-feedback">Valid.</div>
-      <div class="invalid-feedback">Please select a payment method.</div>
+      <span id="paymentError" class="error-message"></span>
     </div>
 
     <div class="col-12">
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="agree" name="agree" value="yes" required>
+        <input class="form-check-input" type="checkbox" id="agree" name="agree" value="yes">
         <label class="form-check-label" for="agree">I agree to the event terms & conditions</label>
-        <div class="valid-feedback">Valid.</div>
-        <div class="invalid-feedback">You must agree before booking.</div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="privacy" name="privacy" value="yes" required>
+      <span id="agreeError" class="error-message"></span>
+      
+      <div class="form-check mt-2">
+        <input class="form-check-input" type="checkbox" id="privacy" name="privacy" value="yes">
         <label class="form-check-label" for="privacy">I accept the privacy policy</label>
-        <div class="valid-feedback">Valid.</div>
-        <div class="invalid-feedback">You must accept the privacy policy.</div>
       </div>
+      <span id="privacyError" class="error-message"></span>
     </div>
-<<<<<<< HEAD
-  </nav>
-      <div>
-
-      <h2>Reserve Your Ticket</h2>
-      <form action="https://httpbin.org/get" method="get" onsubmit="return validateForm()">
-        <label for="event">Select Event</label>
-        <select id="event" name="event" required>
-          <option value="workshop">Web Development Workshop</option>
-          <option value="conference">Tech Innovators Conference 2025</option>
-        </select><span id="eventError"></span>
-        <br><br>
-        <label for="ticket-type">Ticket Type</label>
-        <select id="ticket-type" name="ticket-type" required>
-          <option value="standard">Standard</option>
-          <option value="vip">VIP</option>
-        </select><span id="ticketError"></span>
-        <br><br>
-        <label for="quantity">Quantity</label>
-        <input type="number" id="quantity" name="quantity" min="1" max="10" required />
-        <span id="quantityError"></span>
-        <br><br>
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" placeholder="Full name" required />
-        <span id="nameError"></span>
-        <br><br>
-        <label for="email">Your Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required />
-        <span id="emailError"></span>
-        <br><br>
-        <label>Payment Method</label><br>
-        <input type="radio" id="card" name="payment" value="card" required>
-        <label for="card">Credit/Debit Card</label><br>
-
-        <input type="radio" id="cash" name="payment" value="cash">
-        <label for="cash">Pay at Event</label>
-        <span id="paymentError"></span>
-        <br><br>
-
-        
-        <input type="checkbox" id="agree" name="agree" value="yes" required>
-        <label for="agree">I agree to the event terms & conditions</label>
-        <br>
-        <input type="checkbox" id="privacey" name="agree" value="yes" required>
-        <label for="privacey">I accept the privacy policy</label>
-        <span id="agreeError"></span>
-        <br><br>
-        <br>
-        <button  class="btn" type="submit" >Book Now</button>
-      </form>
-      <pre>
-
-      </pre>
-      </div>
-=======
->>>>>>> aee4d0c0ea3ff31c9f946e05e654e6d5eea07988
 
     <div class="col-12">
       <button class="btn btn-primary" type="submit">Book Now</button>
@@ -231,9 +191,8 @@
   <p class="mb-0">Discover. Join. Connect.</p>
 </footer>
 
-
 <script>
-function Booking (event, ticketType, quantity, name, email) {
+function Booking(event, ticketType, quantity, name, email) {
   this.event = event;
   this.ticketType = ticketType;
   this.quantity = quantity;
@@ -243,5 +202,3 @@ function Booking (event, ticketType, quantity, name, email) {
 </script>
 </body>
 </html>
-
-

@@ -11,59 +11,80 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"></script>
 
-      <script>
-        function validateForm() {
-          let isValid = true;
-          document.querySelectorAll("span").forEach(span => span.innerText = "");
+  <style>
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875em;
+      margin-top: 0.25rem;
+      display: block;
+    }
+  </style>
 
-          if (document.getElementById("event-name").value.trim() === "") {
-            document.getElementById("eventError").innerText = " Please enter the event name.";
-            isValid = false;
-          }
+  <script>
+    function validateForm() {
+      let isValid = true;
+      
+      // Clear all previous error messages
+      document.querySelectorAll(".error-message").forEach(span => span.innerText = "");
 
-          if (document.getElementById("event-date").value === "") {
-            document.getElementById("dateError").innerText = " Please select a date.";
-            isValid = false;
-          }
-          else {
-            let today = new Date().toISOString().split("T")[0];
-            if (date < today) {
-                document.getElementById("dateError").innerText = " Date cannot be in the past.";
-                isValid = false;
-            }
-          }
+      // Validate event name
+      if (document.getElementById("event-name").value.trim() === "") {
+        document.getElementById("eventError").innerText = "Please enter the event name.";
+        isValid = false;
+      }
 
-          if (document.getElementById("event-time").value === "") {
-            document.getElementById("timeError").innerText = " Please select a time.";
-            isValid = false;
-          }
-
-          if (document.getElementById("location").value.trim() === "") {
-            document.getElementById("locationError").innerText = " Please enter the location.";
-            isValid = false;
-          }
-
-          if (document.getElementById("description").value.trim() === "") {
-            document.getElementById("descriptionError").innerText = " Please enter a description.";
-            isValid = false;
-          }
-
-          let image = document.getElementById("image").value;
-          if (image && !(/\.(jpg|jpeg|png)$/i).test(image)) {
-              document.getElementById("imageError").innerText = " Only JPG or PNG images allowed.";
-              isValid = false;
-          }
-
-          return isValid;
+      // Validate date (FIXED: variable definition issue)
+      let eventDate = document.getElementById("event-date").value;
+      if (eventDate === "") {
+        document.getElementById("dateError").innerText = "Please select a date.";
+        isValid = false;
+      } else {
+        let today = new Date().toISOString().split("T")[0];
+        if (eventDate < today) {
+          document.getElementById("dateError").innerText = "Date cannot be in the past.";
+          isValid = false;
         }
-      </script>
+      }
+
+      // Validate time
+      if (document.getElementById("event-time").value === "") {
+        document.getElementById("timeError").innerText = "Please select a time.";
+        isValid = false;
+      }
+
+      // Validate location
+      if (document.getElementById("location").value.trim() === "") {
+        document.getElementById("locationError").innerText = "Please enter the location.";
+        isValid = false;
+      }
+
+      // Validate description (with minimum length)
+      let description = document.getElementById("description").value.trim();
+      if (description === "") {
+        document.getElementById("descriptionError").innerText = "Please enter a description.";
+        isValid = false;
+      } else if (description.length < 20) {
+        document.getElementById("descriptionError").innerText = "Description must be at least 20 characters long.";
+        isValid = false;
+      }
+
+      // Validate image file type (optional field)
+      let image = document.getElementById("image").value;
+      if (image && !(/\.(jpg|jpeg|png)$/i).test(image)) {
+        document.getElementById("imageError").innerText = "Only JPG or PNG images are allowed.";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+  </script>
 </head>
 <body>
   
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand" href="index.html">
-      <img src="images/GoEventLogo.jpg" alt="Uniform Logo" width="50">
+      <img src="images/GoEventLogo.jpg" alt="GoEvent Logo" width="50">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
@@ -78,7 +99,6 @@
         <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li>
         <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
-        <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
         <li class="nav-item"><a class="nav-link" href="billCalculator.html">Calculator</a></li>
         <li class="nav-item"><a class="nav-link" href="funpage.html">Fun Page</a></li>
       </ul>
@@ -90,87 +110,47 @@
   <h1 class="mb-3">Create Event</h1>
   <h2 class="mb-4">Wondering where to make memories?<br>JUST GoEvent :)</h2>
 
-<<<<<<< HEAD
-    
-    <form action="https://httpbin.org/get" method="get" onsubmit="return validateForm()">
-      <label for="event-name">Event Name</label>
-      <input type="text" id="event-name" name="event-name" placeholder="Enter event title" required />
-      <span id="eventError"></span>
-      <br><br>
-      <label for="event-date">Date</label>
-      <input type="date" id="event-date" name="event-date" required />
-      <span id="dateError"></span>
-      <br><br>
-      <label for="event-time">Time</label>
-      <input type="time" id="event-time" name="event-time" required />
-      <span id="timeError"></span>
-      <br><br>
+  <form action="https://httpbin.org/get" method="get" onsubmit="return validateForm()" class="row g-3">
+    <div class="col-12">
+      <label for="event-name" class="form-label">Event Name</label>
+      <input type="text" id="event-name" name="event-name" class="form-control" placeholder="Enter event title">
+      <span id="eventError" class="error-message"></span>
+    </div>
 
-      <label for="location">Location</label>
-      <input type="text" id="location" name="location" placeholder="Event venue" required />
-      <span id="locationError"></span>
-      <br><br>
+    <div class="col-md-6">
+      <label for="event-date" class="form-label">Date</label>
+      <input type="date" id="event-date" name="event-date" class="form-control">
+      <span id="dateError" class="error-message"></span>
+    </div>
 
-      <label for="description">Description</label><br>
-      <textarea id="description" name="description" rows="5" placeholder="Describe your event..." required></textarea>
-      <span id="descriptionError"></span>
-      <br><br>
+    <div class="col-md-6">
+      <label for="event-time" class="form-label">Time</label>
+      <input type="time" id="event-time" name="event-time" class="form-control">
+      <span id="timeError" class="error-message"></span>
+    </div>
 
-      <label for="image">Upload Image</label>
-      <input type="file" id="image" name="image" accept="image/png, image/jpeg" />
-      <span id="imageError"></span>
-      <br><br>
+    <div class="col-12">
+      <label for="location" class="form-label">Location</label>
+      <input type="text" id="location" name="location" class="form-control" placeholder="Event venue">
+      <span id="locationError" class="error-message"></span>
+    </div>
 
-      <button type="submit" class="btn">Create Event</button><br><br>
-    </form>
-=======
-  <form action="https://httpbin.org/get" method="get" class="row g-3 was-validated">
-  <div class="col-12">
-    <label for="event-name" class="form-label">Event Name</label>
-    <input type="text" id="event-name" name="event-name" class="form-control" placeholder="Enter event title" required>
-    <div class="valid-feedback">Looks good!</div>
-    <div class="invalid-feedback">Please enter an event name.</div>
->>>>>>> aee4d0c0ea3ff31c9f946e05e654e6d5eea07988
-  </div>
+    <div class="col-12">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" name="description" rows="5" class="form-control" placeholder="Describe your event (minimum 20 characters)..."></textarea>
+      <span id="descriptionError" class="error-message"></span>
+    </div>
 
-  <div class="col-md-6">
-    <label for="event-date" class="form-label">Date</label>
-    <input type="date" id="event-date" name="event-date" class="form-control" required>
-    <div class="valid-feedback">Valid date.</div>
-    <div class="invalid-feedback">Please select a date.</div>
-  </div>
+    <div class="col-12">
+      <label for="image" class="form-label">Upload Image (Optional)</label>
+      <input type="file" id="image" name="image" class="form-control" accept="image/png, image/jpeg">
+      <span id="imageError" class="error-message"></span>
+    </div>
 
-  <div class="col-md-6">
-    <label for="event-time" class="form-label">Time</label>
-    <input type="time" id="event-time" name="event-time" class="form-control" required>
-    <div class="valid-feedback">Valid time.</div>
-    <div class="invalid-feedback">Please select a time.</div>
-  </div>
-
-  <div class="col-12">
-    <label for="location" class="form-label">Location</label>
-    <input type="text" id="location" name="location" class="form-control" placeholder="Event venue" required>
-    <div class="valid-feedback">Looks good!</div>
-    <div class="invalid-feedback">Please enter a location.</div>
-  </div>
-
-  <div class="col-12">
-    <label for="description" class="form-label">Description</label>
-    <textarea id="description" name="description" rows="5" class="form-control" placeholder="Describe your event..." required></textarea>
-    <div class="valid-feedback">Valid description.</div>
-    <div class="invalid-feedback">Please provide a description.</div>
-  </div>
-
-  <div class="col-12">
-    <label for="image" class="form-label">Upload Image</label>
-    <input type="file" id="image" name="image" class="form-control" accept="image/png, image/jpeg">
-  </div>
-
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Create Event</button>
-  </div>
-</form>
-
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Create Event</button>
+    </div>
+  </form>
 </div>
 
 <footer class="bg-primary text-white text-center py-3 mt-5">
@@ -179,4 +159,3 @@
 </footer>
 </body>
 </html>
-
